@@ -1,0 +1,24 @@
+# 文件: R/class_sgrna.R
+
+#' Classify sgRNA
+#'
+#' This function classifies sgRNA based on user-defined parameters.
+#'
+#' @param counts A matrix of counts where rows represent features and columns represent samples.
+#' @param min_sum Minimum sum of counts for classification.
+#' @param min_ratio Minimum ratio of the maximum count to the total sum of counts.
+#' @return A vector of classifications.
+#' @export
+class_sgrna <- function(counts, min_sum = 200, min_ratio = 0.7) {
+  apply(counts, 2, function(t) {
+    if (sum(t) >= min_sum) {
+      if (max(t) / sum(t) >= min_ratio) {
+        return(rownames(counts)[which.max(t)])
+      } else {
+        return("multiple")
+      }
+    } else {
+      return("Negative")
+    }
+  })
+}

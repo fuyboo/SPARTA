@@ -1,0 +1,148 @@
+#' Perform Motif Analysis and Prediction
+#'
+#' This function performs motif analysis, calculates differential motifs, filters them,
+#' and determines thresholds using Gaussian mixture models. Optionally, saves plots.
+#'
+#' @param SUM159 A Seurat object containing GDO and motif data.
+#' @param A assay of the motif data.
+#' @param top_n Integer, number of top motifs to analyze.
+#' @param save_path Plot save path. If NULL, plots are not saved.
+#' @return A data frame with predicted protein names and thresholds.
+#' @export
+predict_apt_pro <- function(SUM159,
+                            assay = "motif1w",
+                            top_n = 20,
+                            save_path = NULL) {
+  # Extract and prepare data
+  motif_data <- as.data.frame(SUM159[[assay]]@counts[1:top_n, ])
+  Control_cell <- motif_data[, SUM159$target == "Control"]
+  gRNA_cell <- motif_data[, SUM159$target != "Control"]
+  gRNA_cell$median <- apply(Control_cell, 1, median)
+  gRNA_cell_dif <- apply(gRNA_cell, 1, function(t) {
+    t[1:(ncol(gRNA_cell) - 1)] - t[ncol(gRNA_cell)]
+  })
+  gRNA_cell_dif <- as.data.frame(gRNA_cell_dif)
+  gRNA_cell_dif$group <- SUM159$target[match(rownames(gRNA_cell_dif), Cells(SUM159))]
+  gRNA_cell_dif_median <- aggregate(. ~ group, gRNA_cell_dif, median)
+  rownames(gRNA_cell_dif_median) <- gRNA_cell_dif_median$group
+  gRNA_cell_dif_median <- gRNA_cell_dif_median[, -1, drop = FALSE]
+
+  # Filtering
+  last_three_ranks <- apply(gRNA_cell_dif_median, 2, function(x) {
+    sorted_indices <- order(x, decreasing = FALSE)
+    last_three_indices <- head(sorted_indices, 3)
+    row.names(gRNA_cell_dif_median)[last_three_indices]
+  })
+  last_three_row_names <- unlist(last_three_ranks)
+  row_name_counts <- table(last_three_row_names)
+  sg_need_filter <- names(row_name_counts)[row_name_counts > top_n / 2]
+  print(paste0(sg_need_filter, " was filtered"))
+  gRNA_cell_dif_median_fi <- gRNA_cell_dif_median[!(rownames(gRNA_cell_dif_median) %in% sg_need_filter), ]
+  gRNA_cell_dif_median_fi$group <- str_split(rownames(gRNA_cell_dif_median_fi), "\\-", simplify = TRUE)[, 1]
+
+  # Gaussian mixture model for threshold determination
+  clust_predict_protein <- lapply(colnames(gRNA_cell_dif_median_fi)[-ncol(gRNA_cell_dif_median_fi)], function(col_name) {
+    message("Processing ", col_name)
+    current_col <- gRNA_cell_dif_median_fi[[col_name]]
+    group_col <- gRNA_cell_dif_median_fi$group
+
+    # Apply log transformation if necessary
+    current_col <- ifelse(0 < current_col & current_col < 1 | -1 < current_col & current_col < 0,
+      current_col, sign(current_col) * log2(abs(current_col) + 1)
+    )
+
+    tryCatch(
+      {
+        out <- normalmixEM(current_col, arbvar = TRUE, epsilon = 1e-03, fast = FALSE)
+        plot(out, 2,
+          cex.main = 1.8, cex.axis = 1.3, cex.lab = 1.3, font = 2, font.axis = 2, font.lab = 2,
+          xlab2 = "Targets scores", ylab2 = "Density", main2 = col_name
+        )
+
+        if (!is.null(save_path)) {
+          pdf(file.path(save_path, paste0(col_name, ".pdf")), width = 5, height = 5)
+          dev.off()
+        }
+
+        n <- which.min(out$mu)
+        threshold <- out$mu[n]
+        filtered_data <- gRNA_cell_dif_median_fi[current_col <= threshold, ]
+        filtered_groups <- filtered_data[ave(filtered_data$group, filtered_data$group, FUN = length) > 1, ]
+        group_sums <- tapply(-filtered_groups[[col_name]], filtered_groups$group, sum)
+
+        if (length(group_sums) > 2) {
+          if (min(group_sums) < 0 & max(group_sums) > 0) {
+            group_sums <- group_sums[group_sums >= 0]
+            if (length(group_sums) > 2) {
+              group_sums <- group_sums / sum(group_sums)
+              group_sums <- group_sums[group_sums >= 0.5]
+            } else if (length(group_sums) == 2) {
+              if (max(group_sums) / min(group_sums) <= 2) {
+                group_sums <- group_sums
+              } else {
+                group_sums <- max(group_sums)
+              }
+            } else if (length(group_sums) == 1) {
+              group_sums <- group_sums
+            }
+          } else if (all(group_sums >= 0)) {
+            group_sums <- group_sums / sum(group_sums)
+            group_sums <- group_sums[group_sums >= 0.5]
+          } else if (all(group_sums < 0)) {
+            group_sums <- group_sums / sum(group_sums)
+            group_sums <- group_sums[group_sums <= 0.01]
+          }
+        } else if (length(group_sums) == 2) {
+          if (all(group_sums > 0)) {
+            if (max(group_sums) / min(group_sums) <= 2) {
+              group_sums <- group_sums
+            } else {
+              group_sums <- sort(group_sums, decreasing = TRUE)[1]
+            }
+          } else if (all(group_sums < 0)) {
+            if (min(group_sums) / max(group_sums) <= 2) {
+              group_sums <- group_sums
+            } else {
+              group_sums <- sort(group_sums, decreasing = TRUE)[1]
+            }
+          } else if (any(group_sums < 0)) {
+            group_sums <- group_sums[group_sums > 0]
+          } else if (any(group_sums == 0)) {
+            if (max(group_sums) - min(group_sums) <= 0.5 * max(group_sums)) {
+              group_sums <- group_sums
+            } else {
+              group_sums <- sort(group_sums, decreasing = TRUE)[1]
+            }
+          }
+        } else {
+          group_sums <- group_sums
+        }
+
+        predict_pro <- names(group_sums)
+        if (is.null(predict_pro) | length(predict_pro) == 0) {
+          predict_pro <- "No Predict"
+        } else {
+          predict_pro <- predict_pro
+        }
+      },
+      error = function(e) {
+        predict_pro <<- "Cannot fit"
+        threshold <<- "NULL"
+      }
+    )
+
+    list(col_name = col_name, predict_pro = predict_pro, thresholds = threshold)
+  })
+
+  # Convert results to data frame
+  predict_pro <- do.call(rbind, clust_predict_protein)
+  predict_pro <- as.data.frame(predict_pro, stringsAsFactors = FALSE)
+
+  # Print results
+  for (i in 1:nrow(predict_pro)) {
+    cat(paste(predict_pro$col_name[i], "--", predict_pro$predict_pro[i], sep = ""), "\n")
+  }
+
+  # Return results as a list
+  return(list(gRNA_cell_dif_median_fi = gRNA_cell_dif_median_fi, predict_pro = predict_pro))
+}

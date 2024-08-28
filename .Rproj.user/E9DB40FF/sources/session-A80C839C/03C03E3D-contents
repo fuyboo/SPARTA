@@ -1,0 +1,15 @@
+Package: aptpro
+Type: Package
+Title: A Toolkit for Quality Control of Single-Cell Nucleic Acid Aptamers, gRNA, and mRNA Multi-Omics Sequencing, Cell gRNA Identity Definition, and Prediction of Potential Protein Binding to Nucleic Acid Aptamer Families
+Version: 0.1.0
+Author: Fuyongbo <fuyboo@163.com>
+Imports:
+    Seurat,
+    ggplot2,
+    gridExtra,
+    dplyr,
+    ggpubr,
+    mixtools,
+    dplyr,
+    stringr
+

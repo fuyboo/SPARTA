@@ -1,0 +1,44 @@
+#' Process sgRNA Data
+#'
+#' This function processes sgRNA data in a Seurat object, filtering based on count and ratio thresholds.
+#'
+#' @param SUM159 A Seurat object containing GDO and motif data.
+#' @param min_count Minimum count threshold for filtering (default is 200).
+#' @param min_ratio Minimum ratio threshold for filtering (default is 0.7).
+#' @return A filtered Seurat object.
+#' @export
+cell_gRNA_identity <- function(SUM159, min_count = 200, min_ratio = 0.7) {
+  # 计算 sgRNA 的分类
+  class_sgrna <- apply(SUM159[['GDO']]@counts, 2, function(t) {
+    if (sum(t) >= min_count) {
+      if (max(t) / sum(t) >= min_ratio) {
+        return(rownames(SUM159[['sgRNA']]@counts)[which.max(t)])
+      } else {
+        return("multipe")
+      }
+    } else {
+      return("Negative")
+    }
+  })
+  ##Remove negative and multiple cells, as well as cells where:
+  #The total number of detected cells for each target gRNA category is fewer than 50.
+  #There is only one remaining gRNA category for the corresponding protein.
+  SUM159 <- AddMetaData(SUM159, class_sgrna, col.name = 'target')
+  SUM159$target <-
+    ifelse(grepl('NC', SUM159$target), 'Control', SUM159$target)
+  SUM159$group <-
+    str_split(SUM159$target, '\\-', simplify = TRUE)[, 1]
+  ids_group <-
+    ifelse(grepl('NC', class_sgrna), "Control", class_sgrna)
+  to_keep1 <- names(table(ids_group)[which(table(ids_group) >= 50)])
+  SUM159 <- subset(SUM159, target %in% to_keep1)
+  prefix_counts <-
+    table(str_split(names(table(SUM159$target)), '\\-', simplify = TRUE)[, 1])
+  to_keep2 <-
+    names(prefix_counts[prefix_counts > 1 |
+                          names(prefix_counts) == 'Control'])
+  SUM159 <- subset(SUM159, group %in% to_keep2)
+  return(SUM159)
+}
+
+
