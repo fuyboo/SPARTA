@@ -7,7 +7,9 @@ Use the `devtools` package to install the latest version directly from GitHub:
 
 '''
 #install.packages("devtools")
+
 devtools::install_github("fuyboo/aptpro")
+'''
 
 ## Example
 ### Step1：Nucleic Acid Aptamer Clustering and Family Classification
@@ -15,3 +17,4 @@ devtools::install_github("fuyboo/aptpro")
 
 '''
 python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
+'''
