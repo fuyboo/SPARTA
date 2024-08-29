@@ -39,7 +39,7 @@ SUM159<-cell_gRNA_identity(SUM159,
                            min_ratio = 0.7)
 ```
 
-### Step4：Predict Aptamer Family Protein Binding
+### Step4: Predict Aptamer Family Protein Binding
   In this step, you will predict which proteins are likely bound by the aptamer families. This involves calculating the differential matrix based on the median difference between target cells and NC (negative control) cells, filtering out low-difference families and confusing targets, and using a Gaussian Mixture Model (GMM) to refine the predictions.
 
 ```
