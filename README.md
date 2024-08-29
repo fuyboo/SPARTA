@@ -9,5 +9,5 @@ Use the `devtools` package to install the latest version directly from GitHub:
 
 devtools::install_github("fuyboo/aptpro")
 
-##Example
-###Step1
+## Example
+### Step1
