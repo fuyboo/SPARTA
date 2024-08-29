@@ -17,3 +17,27 @@ devtools::install_github("fuyboo/aptpro")
 ```
 python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
 ```
+
+### Step2: Cell Quality Control
+  Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer, and motif.
+
+···
+SUM159<-cell_quality (SUM159,
+                      count_threshold = 100,
+                      feature_threshold = 200,
+                      percent_mt_threshold = 10,
+                      assay = "sgRNA",
+                      save_path = NULL)
+```
+
+### Step3: Define Cell gRNA Identity
+  In this step, you will define the cell gRNA identity based on the quality and enrichment ratios of the cell gRNA, which were assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
+
+···
+SUM159<-cell_gRNA_identity(SUM159,
+                           min_count = 200,
+                           min_ratio = 0.7)
+```
+
+###
+
