@@ -3,5 +3,6 @@
 ## Installation
 You can install this R package using the following methods:
 Use the `devtools` package to install the latest version directly from GitHub:
+
 #install.packages("devtools")
 devtools::install_github("fuyboo/aptpro")
