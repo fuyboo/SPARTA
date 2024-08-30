@@ -59,5 +59,5 @@ visualize_aptamer_difference(predict_result,'Clust-1')
 
 ```
 ![](PTK7_Clust-1.png "annotation")
-
+![](model_diagram.png "annotation")
 
