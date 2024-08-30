@@ -1,5 +1,5 @@
 # aptpro
- This package provides tools for quality control of single-cell aptamers, gRNA, and mRNA multi-omics sequencing. It also includes functions for defining cell gRNA identities and predicting potential proteins that may bind to nucleic acid aptamers families.
+ This package provides tools for quality control of single-cell aptamers, gRNA, and mRNA multi-omics sequencing. It also includes functions for defining cell gRNA identities and predicting potential proteins that may bind to aptamers families.
 ## Installation
 You can install this R package using the following methods:
 
@@ -55,5 +55,5 @@ predict_result<-predict_apt_pro(SUM159,
 visualize_aptamer_difference(predict_result,'Clust-1')
 
 ```
-
+![](PTK7_Clust-1.png "annotation")
 
