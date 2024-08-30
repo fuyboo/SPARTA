@@ -1,7 +1,7 @@
 # aptpro
  This package provides tools for quality control of single-cell aptamers, gRNA, and mRNA multi-omics sequencing. It also includes functions for defining cell gRNA identities and predicting potential proteins that may bind to aptamers families.
 
-![](model diagram.png"annotation")
+![][model diagram.png]
 
 ## Installation
 You can install this R package using the following methods:
