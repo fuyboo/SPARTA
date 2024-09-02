@@ -15,7 +15,7 @@ cell_gRNA_identity <- function(SUM159, min_count = 200, min_ratio = 0.7) {
       if (max(t) / sum(t) >= min_ratio) {
         return(rownames(SUM159[["sgRNA"]]@counts)[which.max(t)])
       } else {
-        return("multipe")
+        return("multiple")
       }
     } else {
       return("Negative")
