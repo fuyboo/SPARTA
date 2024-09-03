@@ -44,9 +44,10 @@ SUM159<-cell_quality (SUM159,
                       assay = "sgRNA",
                       save_path = NULL)
 ```
-<center class="half">
-  ![](picture/sgrna_qc1.png "annotation")![](picture/sgrna_qc2.png "annotation")
-</center>
+<div align="center">
+  <img src="picture/sgrna_qc1.png" alt="annotation" width="45%" style="display: inline-block;"/>
+  <img src="picture/sgrna_qc2.png" alt="annotation" width="45%" style="display: inline-block;"/>
+</div>
 
   In this step, you will define the cell gRNA identity based on the quality and enrichment ratios of the cell gRNA, which were assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
 
