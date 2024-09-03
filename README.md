@@ -4,7 +4,7 @@
 
 
 
-![](model_diagram.png "annotation")
+![](picture/model_diagram.png "annotation")
 
 
 
@@ -44,6 +44,8 @@ SUM159<-cell_quality (SUM159,
                       assay = "sgRNA",
                       save_path = NULL)
 ```
+<![](picture/sgrna_qc1.png "annotation")><![](picture/sgrna_qc2.png "annotation")>
+
 
   In this step, you will define the cell gRNA identity based on the quality and enrichment ratios of the cell gRNA, which were assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
 
@@ -70,6 +72,6 @@ predict_result<-predict_apt_pro(SUM159,
 visualize_aptamer_difference(predict_result,'Clust-1')
 
 ```
-![](PTK7_Clust-1.png "annotation")
+![](picture/PTK7_Clust-1.png "annotation")
 
 
