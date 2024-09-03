@@ -10,8 +10,15 @@
 
 
 ## Installation
-You can install this R package using the following methods:
+First, install the necessary dependencies for aptamers family clustering, which are MCL (https://micans.org/mcl/) and BLAST (https://blast.ncbi.nlm.nih.gov/Blast.cgi).
 
+```
+conda install bioconda::mcl
+conda install biopython
+
+```
+
+You can install this R package using the following methods:
 Use the `devtools` package to install the latest version directly from GitHub:
 
 ```
