@@ -15,7 +15,6 @@ First, install the necessary dependencies for aptamers family clustering, which 
 ```
 conda install bioconda::mcl
 conda install biopython
-
 ```
 
 You can install this R package using the following methods:
