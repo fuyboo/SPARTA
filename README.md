@@ -76,6 +76,9 @@ predict_result<-predict_apt_pro(SUM159,
 visualize_aptamer_difference(predict_result,'Clust-1')
 
 ```
-![](picture/PTK7_Clust-1.png "annotation")
+<div align="center">
+  <img src="picture/PTK7_Clust-1.png" alt="annotation" style="width: 50%; height: auto;"/>
+</div>
+
 
 
