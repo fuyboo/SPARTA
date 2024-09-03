@@ -10,7 +10,7 @@
 
 
 ## Installation
-First, install the necessary dependencies for aptamers family clustering, which are MCL (https://micans.org/mcl/) and BLAST (https://blast.ncbi.nlm.nih.gov/Blast.cgi).
+First, install the necessary dependencies for aptamers family clustering, which are MCL (https://micans.org/mcl/) and BLAST (https://blast.ncbi.nlm.nih.gov/).
 
 ```
 conda install bioconda::mcl
