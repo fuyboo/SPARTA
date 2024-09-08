@@ -27,7 +27,7 @@ predict_apt_pro <- function(SUM159,
   rownames(gRNA_cell_dif_median) <- gRNA_cell_dif_median$group
   gRNA_cell_dif_median <- gRNA_cell_dif_median[, -1, drop = FALSE]
 
-  # Filtering
+  # Filtering confusion grnas
   last_three_ranks <- apply(gRNA_cell_dif_median, 2, function(x) {
     sorted_indices <- order(x, decreasing = FALSE)
     last_three_indices <- head(sorted_indices, 3)
@@ -40,6 +40,10 @@ predict_apt_pro <- function(SUM159,
   gRNA_cell_dif_median_fi <- gRNA_cell_dif_median[!(rownames(gRNA_cell_dif_median) %in% sg_need_filter), ]
   gRNA_cell_dif_median_fi$group <- str_split(rownames(gRNA_cell_dif_median_fi), "\\-", simplify = TRUE)[, 1]
 
+  # Filtering low difference clusters
+  need_clust<-colnames(gRNA_cell_dif_median_fi)[apply(gRNA_cell_dif_median_fi, 2,function(t){length(unique(t))}>3)]
+  gRNA_cell_dif_median_fi<-gRNA_cell_dif_median_fi[,need_clust]
+  
   # Gaussian mixture model for threshold determination
   clust_predict_protein <- lapply(colnames(gRNA_cell_dif_median_fi)[-ncol(gRNA_cell_dif_median_fi)], function(col_name) {
     message("Processing ", col_name)
