@@ -55,6 +55,7 @@ SUM159<-cell_quality (SUM159,
 
 ```
 SUM159<-cell_gRNA_identity(SUM159,
+                           assay='sgRNA',
                            min_count = 200,
                            min_ratio = 0.7)
 ```
