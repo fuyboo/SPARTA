@@ -8,7 +8,7 @@
 #' @param min_ratio Minimum ratio threshold for filtering (default is 0.7).
 #' @return A filtered Seurat object.
 #' @export
-cell_gRNA_identity <- function(SUM159, min_count = 200, min_ratio = 0.7) {
+cell_gRNA_identity <- function(SUM159, min_count = 200, assay="sgRNA", min_ratio = 0.7) {
   # Define the identity of cell gRNA
   class_sgrna <- apply(SUM159[[assay]]@counts, 2, function(t) {
     if (sum(t) >= min_count) {
