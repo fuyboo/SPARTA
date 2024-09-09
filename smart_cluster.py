@@ -180,7 +180,7 @@ def parse_mcl_cluster(output_dir):
         
         # Format the output for this group
         freq_string = ':'.join(f"Apt-{int(num)+1}" for num, count in freq_count.items())
-        result.append(f"Clust-{int(group_id)+1} {len(freq_count)} {freq_string}")
+        result.append(f"fid_{int(group_id)+1} {len(freq_count)} {freq_string}")
 
     with open(f"{output_dir}/aptamer_clusters", 'w') as file:
         for line in result:  
