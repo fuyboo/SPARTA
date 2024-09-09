@@ -8,6 +8,14 @@
 #' @param percent_mt_threshold
 #' @param save_path
 #' @param assay used to determine the identity of gRNAs in cells.
+library(Seurat)
+library(ggplot2)
+library(gridExtra)
+library(stringr)
+library(mixtools)
+library(dplyr)
+library(ggpubr)
+
 cell_quality <- function(SUM159,
                          count_threshold = 100,
                          feature_threshold = 200,
