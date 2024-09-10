@@ -1,5 +1,5 @@
 # aptpro
- This package provides tools for quality control of single-cell aptamers, gRNA, and mRNA multi-omics sequencing. It also includes functions for defining cell gRNA identities and predicting potential proteins that may bind to aptamers families.
+ This package provides tools for quality control of single-cell aptamers, gRNA, and mRNA multi-omics sequencing. It also includes functions for assigning a gRNA identity to each cell and predicting potential proteins that may bind to aptamers families.
 
 
 
@@ -51,7 +51,7 @@ SUM159<-cell_quality (SUM159,
 </div>
 
 
-  In this step, you will define the cell gRNA identity based on the quality and enrichment ratios of the cell gRNA, which were assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
+  In this step, you will assign a gRNA identity to each cell based on quality and calculate enrichment ratios using cell gRNA counts, which were assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
 
 ```
 SUM159<-cell_gRNA_identity(SUM159,
@@ -61,7 +61,7 @@ SUM159<-cell_gRNA_identity(SUM159,
 ```
 
 ### Step3: Predict Aptamer Family Protein Binding
-  In this step, you will predict which proteins are likely bound by the aptamer families. This involves calculating the differential matrix based on the median difference between target cells and NC (negative control) cells, filtering out low-difference families and confusing targets, and using a Gaussian Mixture Model (GMM) to refine the predictions.
+  In this step, you will predict which proteins are likely bound by the aptamer families. This involves calculating the differential matrix based on the median difference between target cells and NC (negative control) cells, filtering out low-difference families and confusing targets（If more than half of the families are ranked in the top three, then we believe that they are gRNAs that easily cause confusing differences.）, and using a Gaussian Mixture Model (GMM) to refine the predictions.
 
 ```
 predict_result<-predict_apt_pro(SUM159,
