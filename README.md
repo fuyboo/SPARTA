@@ -34,7 +34,7 @@ python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1
 ```
 
 ### Step2: Define Cell gRNA Identity
-  Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer, and motif.
+  Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer and motif.
 
 ```
 SUM159<-cell_quality (SUM159,
@@ -51,7 +51,7 @@ SUM159<-cell_quality (SUM159,
 </div>
 
 
-  In this step, you will assign a gRNA identity to each cell based on quality and calculate enrichment ratios using cell gRNA counts, which were assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
+  In this step, you will assign a gRNA identity to each cell and calculate enrichment ratios using cell gRNA counts, which were assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
 
 ```
 SUM159<-cell_gRNA_identity(SUM159,
@@ -61,7 +61,7 @@ SUM159<-cell_gRNA_identity(SUM159,
 ```
 
 ### Step3: Predict Aptamer Family Protein Binding
-  In this step, you will predict which proteins are likely bound by the aptamer families. This involves calculating the differential matrix based on the median difference between target cells and NC (negative control) cells, filtering out low-difference families and confusing targets（If more than half of the families are ranked in the top three, then we believe that they are gRNAs that easily cause confusing differences.）, and using a Gaussian Mixture Model (GMM) to refine the predictions.
+  In this step, you will predict which proteins are likely bound by the aptamer families. This involves calculating the differential matrix based on the median difference between target cells and NC (Control) cells, filtering out low-difference families and confusing targets（If more than half of the families are ranked in the top three, then we believe that they are gRNAs that easily cause confusing differences.）, and using a Gaussian Mixture Model (GMM) to refine the predictions.
 
 ```
 predict_result<-predict_apt_pro(SUM159,
