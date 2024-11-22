@@ -1,4 +1,4 @@
-# aptpro
+# SPARTA
  This package provides tools for quality control of single-cell aptamers, gRNA, and mRNA multi-omics sequencing. It also includes functions for assigning a gRNA identity to each cell and predicting potential proteins that may bind to aptamers families.
 
 
