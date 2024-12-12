@@ -30,29 +30,31 @@ devtools::install_github("fuyboo/aptpro")
 
 ## input data preparation
 
-### Step1：Aptamer Family Classification
+###raw data preparation
+cellrange*******
+#####
+### Aptamer Family Classification
 Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
 -t threads -i *** -e pvalue_threshold o output_directory
 
 ```
 python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
+
+****步骤呢？？？
+
+
+
 
 
 
 
 ## Example
-### Step1：Aptamer Family Classification
-Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
--t threads -i *** -e pvalue_threshold o output_directory
 
-```
-python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
-```
-
-### Step2: Define Cell gRNA Identity
+### Step1: quality control and cell classification
   Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer and motif.
 
 ```
+SUM159=read
 SUM159<-cell_quality (SUM159,
                       count_threshold = 100,
                       feature_threshold = 200,
