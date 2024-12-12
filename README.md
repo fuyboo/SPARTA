@@ -4,7 +4,7 @@
 
 
 
-![](picture/model_diagram .png "annotation")
+![](picture/model_diagram.png "annotation")
 
 
 
