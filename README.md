@@ -1,5 +1,8 @@
 # SPARTA
- This package provides tools for quality control of single-cell aptamers, gRNA, and mRNA multi-omics sequencing. It also includes functions for assigning a gRNA identity to each cell and predicting potential proteins that may bind to aptamers families.
+This package offers tools for SPARK-seq data analysis. It includes four main steps: 1) aptamer family classification, 2) quality control and cell classification, 3) aptamer-target interaction prediction, and 4) data visualization.
+
+Additionally, SPARTA includes two deep learning modules: one for aptamer binding potential prediction and another for de novo aptamer generation.
+ 
 
 
 
