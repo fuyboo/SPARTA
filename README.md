@@ -28,9 +28,11 @@ Use the `devtools` package to install the latest version directly from GitHub:
 devtools::install_github("fuyboo/aptpro")
 ```
 
-## input data preparation
+## Input data preparation
 
-###raw data preparation
+### raw data preparation
+原始数据到生成mRNA、aptamers、sgRNA表达矩阵的过程可以参考 raw_process.pdf
+
 cellrange*******
 #####
 ### Aptamer Family Classification
@@ -40,6 +42,7 @@ Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST 
 ```
 python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
 
+```
 ****步骤呢？？？
 
 
