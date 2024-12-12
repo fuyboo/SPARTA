@@ -1,5 +1,5 @@
 # SPARTA
-This package offers tools for SPARK-seq data analysis. It includes four main steps: 1) aptamer family classification, 2) quality control and cell classification, 3) aptamer-target interaction prediction, and 4) data visualization.
+This package offers tools for SPARK-seq data analysis. It includes three main steps: 1) quality control and cell classification, 2) aptamer-target interaction prediction, and 3) data visualization.
 
 Additionally, SPARTA includes two deep learning modules: one for aptamer binding potential prediction and another for de novo aptamer generation.
  
@@ -13,14 +13,14 @@ Additionally, SPARTA includes two deep learning modules: one for aptamer binding
 
 
 ## Installation
-First, install the necessary dependencies for aptamers family clustering, which are MCL (https://micans.org/mcl/) and BLAST (https://blast.ncbi.nlm.nih.gov/).
+First, install the necessary dependencies for aptamer family clustering, which are MCL (https://micans.org/mcl/) and BLAST (https://blast.ncbi.nlm.nih.gov/).
 
 ```
 conda install bioconda::mcl
 conda install biopython
 ```
 
-You can install this R package using the following methods:
+You can install this R package using the following method:
 Use the `devtools` package to install the latest version directly from GitHub:
 
 ```
@@ -28,9 +28,22 @@ Use the `devtools` package to install the latest version directly from GitHub:
 devtools::install_github("fuyboo/aptpro")
 ```
 
+## input data preparation
+
+### Step1：Aptamer Family Classification
+Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
+-t threads -i *** -e pvalue_threshold o output_directory
+
+```
+python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
+
+
+
+
 ## Example
-### Step1：Aptamer Clustering and Family Classification
-  Aptamer binding interactions are primarily driven by conserved regions, with minimal differences observed in single aptamer interactions with various proteins. To address this, we use the clustering strategy proposed in Smart-Aptamer, which focuses on selecting the most abundant sequences for family clustering.
+### Step1：Aptamer Family Classification
+Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
+-t threads -i *** -e pvalue_threshold o output_directory
 
 ```
 python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
