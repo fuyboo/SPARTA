@@ -54,11 +54,6 @@ Finally, the corresponding family groups of the aptamers are saved in a file suc
 
 ```
 
-python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
-
-```
-
-
 
 ****步骤呢？？？
 
