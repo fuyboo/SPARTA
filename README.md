@@ -64,6 +64,8 @@ Based on the previous aptamer sequence family grouping information, the aptamer 
 ```
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
 aptamer<-Read10X("./Aptamer_result/")
+
+
 #mRNA abundance matrix
 SUM159 <- CreateSeuratObject(counts = raw_mrna_sgrna$`Gene Expression`[rowSums(raw_mrna_sgrna$`Gene Expression`)>0,])
 #sgRNA abundance matrix
@@ -87,7 +89,6 @@ SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
   Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer and motif.
 
 ```
-SUM159=read
 SUM159<-cell_quality (SUM159,
                       count_threshold = 100,
                       feature_threshold = 200,
