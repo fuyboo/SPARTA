@@ -30,7 +30,7 @@ devtools::install_github("fuyboo/aptpro")
 
 ## Input data preparation
 
-### raw data preparation
+### Raw data preparation
 The process from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices can be referred to in `./raw_process/raw_process.pdf`.
 
 ### Aptamer Family Classification
