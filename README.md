@@ -38,6 +38,8 @@ Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST 
 -t threads -i *** -e pvalue_threshold o output_directory
 
 ```
+Based on the aptamer results from the previous step, a certain number of aptamers can be selected for family analysis. For example, we can select the top 10,000 most abundant sequences for family clustering, as referenced in `./data/uniq_aptamer.fasta`.
+
 python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
 
 ```
