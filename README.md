@@ -31,19 +31,51 @@ devtools::install_github("fuyboo/aptpro")
 ## Input data preparation
 
 ### raw data preparation
-原始数据到生成mRNA、aptamers、sgRNA表达矩阵的过程可以参考 raw_process.pdf
+The process from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices can be referred to in `./raw_process/raw_process.pdf`.
 
-cellrange*******
-#####
 ### Aptamer Family Classification
+Based on the aptamer results from the previous step, a certain number of aptamers can be selected for family analysis. For example, we can select the top 10,000 most abundant sequences for family clustering, as referenced in `./data/uniq_aptamer.fasta`.
+
+
 Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
--t threads -i *** -e pvalue_threshold o output_directory
+-t threads -i inflation value for mcl algorithm  -e pvalue_threshold -o output_directory
 
 ```
-python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
+
+python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
 
 ```
-****步骤呢？？？
+
+Finally, the corresponding family groups of the aptamers are saved in a file such as ./data/output/Aptamer_family.csv.
+
+```
+| name  | seq | seq | 
+| ------------- | ------------- | ------------- |
+| Apt-1  | TTTCGGCGGGTGAATATCCAACTGGTCCGTCCCTTGGGATCTTTGT  | Clust-5  |
+| Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Clust-3  |
+| Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
+
+```
+
+
+***
+Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
+
+```
+mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
+aptamer<-Read10X("./Aptamer_result/")
+
+
+#mRNA abundance matrix
+SUM159 <- CreateSeuratObject(counts = raw_mrna_sgrna$`Gene Expression`[rowSums(raw_mrna_sgrna$`Gene Expression`)>0,])
+#sgRNA abundance matrix
+SUM159[["sgRNA"]] <- CreateAssayObject(raw_mrna_sgrna$`CRISPR Guide Capture`)
+#top_aptamer abundance matrix
+SUM159[["aptamer_1w"]] <- CreateAssayObject(aptamer[top_aptamer_sequence,])
+#aptamer family abundance matrix
+SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
+
+```
 
 
 
@@ -57,7 +89,6 @@ python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1
   Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer and motif.
 
 ```
-SUM159=read
 SUM159<-cell_quality (SUM159,
                       count_threshold = 100,
                       feature_threshold = 200,
