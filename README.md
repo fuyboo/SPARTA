@@ -58,7 +58,22 @@ Finally, the corresponding family groups of the aptamers are saved in a file suc
 ```
 
 
-****步骤呢？？？
+***
+Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
+
+```
+mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
+aptamer<-Read10X("./Aptamer_result/")
+#mRNA abundance matrix
+SUM159 <- CreateSeuratObject(counts = raw_mrna_sgrna$`Gene Expression`[rowSums(raw_mrna_sgrna$`Gene Expression`)>0,])
+#sgRNA abundance matrix
+SUM159[["sgRNA"]] <- CreateAssayObject(raw_mrna_sgrna$`CRISPR Guide Capture`)
+#top_aptamer abundance matrix
+SUM159[["aptamer_1w"]] <- CreateAssayObject(aptamer[top_aptamer_sequence,])
+#aptamer family abundance matrix
+SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
+
+```
 
 
 
