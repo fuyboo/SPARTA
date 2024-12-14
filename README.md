@@ -34,13 +34,13 @@ devtools::install_github("fuyboo/aptpro")
 The process from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices can be referred to in `./raw_process/raw_process.pdf`.
 
 ### Aptamer Family Classification
+Based on the aptamer results from the previous step, a certain number of aptamers can be selected for family analysis. For example, we can select the top 10,000 most abundant sequences for family clustering, as referenced in `./data/uniq_aptamer.fasta`.
 Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
--t threads -i *** -e pvalue_threshold o output_directory
+-t threads -i inflation value for mcl algorithm  -e pvalue_threshold -o output_directory
 
 ```
-Based on the aptamer results from the previous step, a certain number of aptamers can be selected for family analysis. For example, we can select the top 10,000 most abundant sequences for family clustering, as referenced in `./data/uniq_aptamer.fasta`.
 
-python ./code/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
+python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
 
 ```
 ****步骤呢？？？
