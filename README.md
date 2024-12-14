@@ -35,6 +35,8 @@ The process from raw data to the generation of mRNA, aptamer, and sgRNA expressi
 
 ### Aptamer Family Classification
 Based on the aptamer results from the previous step, a certain number of aptamers can be selected for family analysis. For example, we can select the top 10,000 most abundant sequences for family clustering, as referenced in `./data/uniq_aptamer.fasta`.
+
+
 Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
 -t threads -i inflation value for mcl algorithm  -e pvalue_threshold -o output_directory
 
