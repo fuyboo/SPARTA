@@ -31,10 +31,8 @@ devtools::install_github("fuyboo/aptpro")
 ## Input data preparation
 
 ### raw data preparation
-原始数据到生成mRNA、aptamers、sgRNA表达矩阵的过程可以参考 raw_process.pdf
+The process from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices can be referred to in `./raw_process/raw_process.pdf`.
 
-cellrange*******
-#####
 ### Aptamer Family Classification
 Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
 -t threads -i *** -e pvalue_threshold o output_directory
