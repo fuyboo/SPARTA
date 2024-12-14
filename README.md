@@ -45,6 +45,21 @@ Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST 
 python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
 
 ```
+Finally, the corresponding family groups of the aptamers are saved in a file such as ./data/output/Aptamer_family.csv.
+| name  | seq | seq | 
+| ------------- | ------------- | ------------- |
+| Apt-1  | TTTCGGCGGGTGAATATCCAACTGGTCCGTCCCTTGGGATCTTTGT  | Clust-5  |
+| Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Clust-3  |
+| Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
+
+```
+
+python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
+
+```
+
+
+
 ****步骤呢？？？
 
 
