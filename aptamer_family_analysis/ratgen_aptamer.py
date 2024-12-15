@@ -16,7 +16,7 @@ from sklearn.metrics import silhouette_score
 import matplotlib.pyplot as plt
 import pysam
 
-# 动态导入 raptgen_models 模块
+
 RAPGEN_MODELS_PATH = "/home/disk/fuyongbo/lgy/aptamer_pred/aptamer_analysis/Ratgen"
 sys.path.append(RAPGEN_MODELS_PATH)
 import raptgen_models
@@ -154,11 +154,11 @@ def run_aptamer_training(ptk7_sample_path, negatibe_sample_path, model_save_dir=
 # Command-line interface
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Aptamer training pipeline")
-    parser.add_argument('--ptk7_sample_path', required=True, help="Path to PTK7 sample file")
-    parser.add_argument('--negatibe_sample_path', required=True, help="Path to negative sample file")
-    parser.add_argument('--model_save_dir', default='raptgen_save', help="Directory to save the trained model")
-    parser.add_argument('--data_save_dir', default='raptgen_data', help="Directory to save generated data")
-    parser.add_argument('--device', default='cuda:3', help="Device to use for training (e.g., 'cuda:0' or 'cpu')")
+    parser.add_argument('-ptk7_sample_path', required=True, help="Path to PTK7 sample file")
+    parser.add_argument('-negatibe_sample_path', required=True, help="Path to negative sample file")
+    parser.add_argument('-model_save_dir', default='raptgen_save', help="Directory to save the trained model")
+    parser.add_argument('-data_save_dir', default='raptgen_data', help="Directory to save generated data")
+    parser.add_argument('-device', default='cuda:3', help="Device to use for training (e.g., 'cuda:0' or 'cpu')")
 
     args = parser.parse_args()
     run_aptamer_training(
