@@ -79,8 +79,13 @@ python ./aptamer_family_analysisrun_aptamer_training.py -ptk7_sample_path ./data
 
 
 
-***
-Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
+
+
+
+
+
+## Example
+###Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
 
 ```
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
@@ -97,15 +102,6 @@ SUM159[["aptamer_1w"]] <- CreateAssayObject(aptamer[top_aptamer_sequence,])
 SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
 
 ```
-
-
-
-
-
-
-
-## Example
-
 ### Step1: Quality control and cell classification
   Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer and motif.
 
