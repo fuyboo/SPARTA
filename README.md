@@ -30,8 +30,10 @@ devtools::install_github("fuyboo/aptpro")
 
 ## Input data preparation
 
+
 ### Raw data preparation
 The process from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices can be referred to in `./raw_process/raw_process.pdf`.
+
 
 ### Aptamer Family Classification
 Based on the aptamer results from the previous step, a certain number of aptamers can be selected for family analysis. For example, we can select the top 10,000 most abundant sequences for family clustering, as referenced in `./data/input/uniq_aptamer.fasta`.
@@ -55,14 +57,33 @@ Finally, the corresponding family groups of the aptamers are saved in a file suc
 | Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Clust-3  |
 | Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
 
+
 ### PTK7 aptamers prediction
 Through the previous classification of the aptamer family, a total of 2,395 aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
 
 ```
 
-python ./aptamer_family_analysis/fcna_trainer.py -train_data ./ptk7_2cls_new.csv -external_data ./external_data.csv -output grad_folder_1215-2 
+python ./aptamer_family_analysis/fcna_trainer.py -train_data ./data/input/ptk7_2cls_new.csv -external_data ./external_data.csv -output grad_folder_1215-2 
 
 ```
+
+### PTK7 aptamers generation
+Based on the results of Aptamer Family Classification, aptamer sequences binding and non-binding to PTK7 protein were used to train the RaptGen model ([https://github.com/hmdlab/raptgen](https://github.com/hmdlab/raptgen)) to generate new sequences with potential PTK7 protein binding affinity.
+
+```
+
+python ./aptamer_family_analysisrun_aptamer_training.py \
+  --ptk7_sample_path /home/disk/fuyongbo/lgy/aptamer_pred/clust1_ptk7.csv \
+  --negatibe_sample_path /home/disk/fuyongbo/lgy/aptamer_pred/other_sequences.csv \
+  --model_save_dir /path/to/save/model \
+  --data_save_dir /path/to/save/data \
+  --device cuda:3
+
+
+```
+
+
+
 
 ***
 Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
