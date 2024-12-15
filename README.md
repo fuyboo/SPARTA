@@ -55,7 +55,14 @@ Finally, the corresponding family groups of the aptamers are saved in a file suc
 | Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Clust-3  |
 | Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
 
+### PTK7 aptamers prediction
+Through the previous classification of the aptamer family, a total of 2,395 aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
 
+```
+
+python ./aptamer_family_analysis/fcna_trainer.py -train_data ./ptk7_2cls_new.csv -external_data ./external_data.csv -o grad_folder_1215-2 
+
+```
 
 ***
 Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
