@@ -88,9 +88,9 @@ python ./aptamer_family_analysisrun_aptamer_training.py -ptk7_sample_path ./data
 Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
 
 ```
+#Read the results of **Raw Data Preparation**.
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
 aptamer<-Read10X("./Aptamer_result/")
-
 
 #mRNA abundance matrix
 SUM159 <- CreateSeuratObject(counts = raw_mrna_sgrna$`Gene Expression`[rowSums(raw_mrna_sgrna$`Gene Expression`)>0,])
