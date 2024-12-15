@@ -30,7 +30,7 @@ devtools::install_github("fuyboo/aptpro")
 
 ## Input data preparation
 
-### raw data preparation
+### Raw data preparation
 The process from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices can be referred to in `./raw_process/raw_process.pdf`.
 
 ### Aptamer Family Classification
@@ -85,7 +85,7 @@ SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
 
 ## Example
 
-### Step1: quality control and cell classification
+### Step1: Quality control and cell classification
   Before performing cell quality control, ensure that you have a Seurat object that includes three essential components: mRNA, aptamer and motif.
 
 ```
@@ -112,7 +112,7 @@ SUM159<-cell_gRNA_identity(SUM159,
                            min_ratio = 0.7)
 ```
 
-### Step3: Predict Aptamer Family Protein Binding
+### Step2: Aptamer-target interaction prediction
   In this step, you will predict which proteins are likely bound by the aptamer families. This involves calculating the differential matrix based on the median difference between target cells and NC (Control) cells, filtering out low-difference families and confusing targets（If more than half of the families are ranked in the top three, then we believe that they are gRNAs that easily cause confusing differences.）, and using a Gaussian Mixture Model (GMM) to refine the predictions.
 
 ```
@@ -122,7 +122,7 @@ predict_result<-predict_apt_pro(SUM159,
                                 save_path = NULL)
 ```
 
-### Step4: Visualize Prediction Results
+### Step3: Data visualization
   Visualization is crucial for interpreting and presenting the results of your aptamer-protein binding predictions. In this step, you'll generate plots to help understand the data and findings from the previous analysis.
 
 ```
