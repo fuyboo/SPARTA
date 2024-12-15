@@ -63,7 +63,7 @@ Through the previous classification of the aptamer family, a total of 2,395 apta
 
 ```
 
-python ./aptamer_family_analysis/fcna_trainer.py -train_data ./data/input/ptk7_2cls_new.csv -external_data ./external_data.csv -output grad_folder_1215-2 
+python ./aptamer_family_analysis/fcna_trainer.py -train_data ./data/input/ptk7_2cls_new.csv -external_data ./data/input/external_data.csv -output grad_folder_1215-2 
 
 ```
 
@@ -72,13 +72,7 @@ Based on the results of Aptamer Family Classification, aptamer sequences binding
 
 ```
 
-python ./aptamer_family_analysisrun_aptamer_training.py \
-  --ptk7_sample_path /home/disk/fuyongbo/lgy/aptamer_pred/clust1_ptk7.csv \
-  --negatibe_sample_path /home/disk/fuyongbo/lgy/aptamer_pred/other_sequences.csv \
-  --model_save_dir /path/to/save/model \
-  --data_save_dir /path/to/save/data \
-  --device cuda:3
-
+python ./aptamer_family_analysisrun_aptamer_training.py -ptk7_sample_path ./data/input/clust1_ptk7.csv -negatibe_sample_path ./data/input/other_sequences.csv 
 
 ```
 
