@@ -60,7 +60,7 @@ Through the previous classification of the aptamer family, a total of 2,395 apta
 
 ```
 
-python ./aptamer_family_analysis/fcna_trainer.py -train_data ./ptk7_2cls_new.csv -external_data ./external_data.csv -o grad_folder_1215-2 
+python ./aptamer_family_analysis/fcna_trainer.py -train_data ./ptk7_2cls_new.csv -external_data ./external_data.csv -output grad_folder_1215-2 
 
 ```
 
