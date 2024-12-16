@@ -72,8 +72,8 @@ aptamer_family<-read.csv("./data/output/Aptamer_family.csv",row.names=1)
 top_aptamer_sequence<-aptamer_family$seq
 
 #Read the results of **Raw data preparation**.
-mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
-aptamer<-Read10X("./Aptamer_result/")
+mrna_sgrna<-Read10X("./SPARK_result/filtered_feature_bc_matrix/")
+aptamer<-Read10X("./SPARK_result/Aptamer_result/")
 
 
 #mRNA abundance matrix
