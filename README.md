@@ -65,7 +65,7 @@ Through the previous classification of the aptamer family, aptamer sequences bin
 
 ```
 
-python ./aptamer_family_analysis/fcna_trainer.py -train_data ./data/input/ptk7_2cls_new.csv -external_data ./data/input/external_data.csv -output grad_folder_1215-2 
+python ./aptamer_family_analysis/fcna_trainer.py -train_data ./data/input/ptk7_2cls_new.csv -external_data ./data/input/external_data.csv -output_path grad_folder_1215-2 
 
 ```
 
