@@ -96,8 +96,6 @@ library('mixtools')
 library('ggplot2')
 
 
-
-
 #Read the results of **Raw Data Preparation**.
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
 aptamer<-Read10X("./Aptamer_result/")
