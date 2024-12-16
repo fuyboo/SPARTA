@@ -89,6 +89,8 @@ aptamer_need_1w$group <- aptamer_family$group
 motif_need_1w <- aptamer_need_1w %>%
   group_by(group) %>%
   summarise_all(sum)
+motif_need_1w[1:3,1:3]
+
 ```
 |AAACCTGAGAGGTTGC-1 |AAACCTGAGATCCCGC-1 |AAACCTGAGATGTAAC-1 |
 | ------------- | ------------- | ------------- |
