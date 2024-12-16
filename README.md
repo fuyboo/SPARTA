@@ -32,23 +32,19 @@ devtools::install_github("fuyboo/SPARTA")
 
 
 ### Raw data preparation
-The process from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices can be referred to in `./raw_process/raw_process.pdf`.
+The data analysis from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices was performed using CellRanger (from 10x Genomics). For details, please refer to the document ./raw_process/raw_process.pdf.
 
 
 ### Aptamer Family Classification
-Based on the aptamer results from the previous step, a certain number of aptamers can be selected for family analysis. For example, we can select the top 10,000 most abundant sequences for family clustering, as referenced in `./data/input/uniq_aptamer.fasta`.
-
-
-Classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
--t threads -i inflation value for mcl algorithm  -e pvalue_threshold -o output_directory
+Based on the results of the previous aptamer preprocessing step, select aptamers with a certain level of enrichment for family analysis. For example, the top 10,000 most enriched sequences can be selected for subsequent family analysis.
+Then, classify aptamer sequences based on their similarities using the BLAST-vs-BLAST and MCL strategy.
+with parameters: -t threads -i inflation value for mcl algorithm  -e pvalue_threshold -o output_directory
 
 ```
-
 python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy/data_3/motif/test1w
 
 ```
-
-Finally, the corresponding family groups of the aptamers are saved in a file such as ./data/output/Aptamer_family.csv.
+The resulted family information of the aptamers are saved in a file such as ./data/output/Aptamer_family.csv.
 
 
 
@@ -59,34 +55,12 @@ Finally, the corresponding family groups of the aptamers are saved in a file suc
 | Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
 
 
-
-### PTK7 aptamers prediction
-Through the previous classification of the aptamer family, aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
-
-```
-
-python ./aptamer_family_analysis/fcna_trainer.py -train_data ./data/input/ptk7_2cls_new.csv -external_data ./data/input/external_data.csv -output_path grad_folder_1215-2 
-
-```
-
-### PTK7 aptamers generation
-Based on the results of Aptamer Family Classification, aptamer sequences binding and non-binding to PTK7 protein were used to train the RaptGen model ([https://github.com/hmdlab/raptgen](https://github.com/hmdlab/raptgen)) to generate new sequences with potential PTK7 protein binding affinity.
-
-```
-
-python ./aptamer_family_analysis/raptgen_aptamer.py -ptk7_sample_path ./data/input/clust1_ptk7.csv -negatibe_sample_path ./data/input/other_sequences.csv 
-
-```
+Finally, the aptamer family abundance matrix 'motit_need_1w' can be generated as fellow:
+###########写出来具体的####### 最好有代码给人家准备好##########################################################
 
 
 
-
-
-
-
-
-
-## Example
+## The formal analysis：Aptamer-target interaction prediction 
 Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
 
 ```
@@ -99,6 +73,7 @@ library('ggplot2')
 #Read the results of **Raw Data Preparation**.
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
 aptamer<-Read10X("./Aptamer_result/")
+########这个aptamer——resut的文件夹又哪里来的############################
 
 #mRNA abundance matrix
 SUM159 <- CreateSeuratObject(counts = raw_mrna_sgrna$`Gene Expression`[rowSums(raw_mrna_sgrna$`Gene Expression`)>0,])
@@ -158,5 +133,24 @@ visualize_aptamer_difference(predict_result,'Clust-1')
   <img src="picture/PTK7_Clust-1.png" alt="annotation" style="width: 50%; height: auto;"/>
 </div>
 
+
+
+### PTK7 aptamers prediction
+Through the previous classification of the aptamer family, aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
+
+```
+
+python ./aptamer_family_analysis/fcna_trainer.py -train_data ./data/input/ptk7_2cls_new.csv -external_data ./data/input/external_data.csv -output_path grad_folder_1215-2 
+
+```
+
+### PTK7 aptamers generation
+Based on the results of Aptamer Family Classification, aptamer sequences binding and non-binding to PTK7 protein were used to train the RaptGen model ([https://github.com/hmdlab/raptgen](https://github.com/hmdlab/raptgen)) to generate new sequences with potential PTK7 protein binding affinity.
+
+```
+
+python ./aptamer_family_analysis/raptgen_aptamer.py -ptk7_sample_path ./data/input/clust1_ptk7.csv -negatibe_sample_path ./data/input/other_sequences.csv 
+
+```
 
 
