@@ -71,7 +71,7 @@ library('dplyr')
 aptamer_family<-read.csv("./data/output/Aptamer_family.csv",row.names=1)
 top_aptamer_sequence<-aptamer_family$seq
 
-#Read the results of **Raw Data Preparation**.
+#Read the results of **Raw data preparation**.
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
 aptamer<-Read10X("./Aptamer_result/")
 
@@ -92,9 +92,9 @@ motif_need_1w <- aptamer_need_1w %>%
 ```
 |AAACCTGAGAGGTTGC-1 |AAACCTGAGATCCCGC-1 |AAACCTGAGATGTAAC-1 |
 | ------------- | ------------- | ------------- |
-|Clust-1            |1318               |1572               |    
-|Clust-2            |713                |736                |     
-|Clust-3            |629                |620                |  
+|Family-1            |1318               |1572               |    
+|Family-2            |713                |736                |     
+|Family-3            |629                |620                |  
 ```
 SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
 ```
