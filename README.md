@@ -48,7 +48,7 @@ The resulted family information of the aptamers are saved in a file such as ./da
 
 
 
-| name  | seq | seq | 
+| name  | seq | group | 
 | ------------- | ------------- | ------------- |
 | Apt-1  | TTTCGGCGGGTGAATATCCAACTGGTCCGTCCCTTGGGATCTTTGT  | Clust-5  |
 | Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Clust-3  |
@@ -68,7 +68,11 @@ library('Seurat')
 library('SPARTA')
 library('mixtools')
 library('ggplot2')
+library('dplyr')
 
+
+aptamer_family<-read.csv("./data/output/Aptamer_family.csv",row.names=1)
+top_aptamer_sequence<-aptamer_family$seq
 
 #Read the results of **Raw Data Preparation**.
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
@@ -82,6 +86,12 @@ SUM159[["sgRNA"]] <- CreateAssayObject(raw_mrna_sgrna$`CRISPR Guide Capture`)
 #top_aptamer abundance matrix
 SUM159[["aptamer_1w"]] <- CreateAssayObject(aptamer[top_aptamer_sequence,])
 #aptamer family abundance matrix
+aptamer_need_1w<-GetAssayData(SUM159, slot = "counts",assays='apatmer_1w")
+aptamer_need_1w<- data.frame(aptamer_need_1w)
+aptamer_need_1w$group <- aptamer_family$group
+motif_need_1w <- aptamer_need_1w %>%
+  group_by(group) %>%
+  summarise_all(sum)
 SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
 
 ```
