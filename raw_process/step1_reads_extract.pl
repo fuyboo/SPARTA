@@ -64,9 +64,3 @@ Options:
 
 Example: $0 --R1 A1.R1.fastq.gz --R2 A1.R2.fastq.gz --o1 A1.extra.R1.fastq.gz --o2 A1.extra.R2.fastq.gz
 
-
-Version: 1.0
-Contact:	clge\@lc-bio.com
-Last Update:	2023/05/30
-";
-}
