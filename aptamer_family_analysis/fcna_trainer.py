@@ -138,15 +138,15 @@ import random
 import os
 
 def main(args):
-    label_filename = args.label_filename
-    sanlicy_path = args.sanlicy_path
-    external_data_path = args.external_data_path  # Add the external data path argument
-    os.makedirs(sanlicy_path, exist_ok=True)
+    external_data = args.external_data 
+    train_data = args.train_data
+    output_path = args.output_path
+    os.makedirs(output_path, exist_ok=True)
 
     model = FCNA(motiflen=13)
 
     # Load data
-    label_df = pd.read_csv(label_filename, index_col=0)
+    label_df = pd.read_csv(train_data, index_col=0)
     train_data_list, train_label_list, val_data_list, val_label_list = [], [], [], []
 
     random.seed(2021)
@@ -185,9 +185,14 @@ def main(args):
     # Optimizer
     opt = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
-    # Training loop
-    best_val_acc = 0
-    best_model = None
+    # Logs for each epoch
+    train_detail_dict = {'Epoch': [], 'Step': [], 'train_loss_l': [], 'train_acc_l': []}
+    val_detail_dict = {'Epoch': [], 'Step': [], 'val_loss_l': [], 'val_acc_l': []}
+    val_epoch_log_dict = {'Epoch': [], 'val_epoch_acc_l': []}
+
+    # Training and validation loop
+    best_val_acc = 0  # Initialize variable to track the best validation accuracy
+    best_model = None  # Variable to store the best model
 
     for epoch in range(100):
         model.train()
@@ -220,15 +225,46 @@ def main(args):
 
         print(f'Epoch {epoch + 1}, Validation Accuracy: {val_epoch_acc * 100:.3f}%')
 
+        # Save the model at the end of every epoch
+        save_path = os.path.join(output_path, f'epoch_{epoch}.pkl')
+        torch.save(model.state_dict(), save_path)
+
+        # Track and save the best model based on validation accuracy
         if val_epoch_acc > best_val_acc:
             best_val_acc = val_epoch_acc
             best_model = model
             best_model_path = os.path.join(output_path, 'best_model.pkl')
-            torch.save(best_model.state_dict(), best_model_path)
+            torch.save(best_model.state_dict(), best_model_path)  # Save the best model
+
+        # Save epoch logs
+        val_epoch_log_dict['Epoch'].append(epoch)
+        val_epoch_log_dict['val_epoch_acc_l'].append(val_epoch_acc)
+
+        # Save log files as needed
+        val_epoch_df = pd.DataFrame(val_epoch_log_dict)
+        val_epoch_df.to_csv(os.path.join(output_path, 'val_epoch_log.csv'), index=False)
 
     # After training, load the best model for final evaluation
-    best_model = FCNA(motiflen=13)
+    best_model = FCNA(motiflen=13)  # Reinitialize the model architecture
     best_model.load_state_dict(torch.load(best_model_path))
+
+    # Evaluation: use the best model to evaluate performance on the validation set
+    pre_seq = []
+    labe_seq = []
+    for val_data, val_label in val_loader:
+        output = best_model(val_data)
+        out_res = torch.argmax(output, dim=-1)
+        pre_seq.append(out_res)
+        labe_seq.append(torch.squeeze(val_label))
+
+    pre_list = torch.cat(pre_seq).numpy()
+    labe_seq = torch.cat(labe_seq).numpy()
+
+    acc = (labe_seq == pre_list).sum() / labe_seq.shape[0]
+    plot_confusion_matrix(labe_seq, pre_list, classes=[0, 1], title=f"PTK7, acc = {acc * 100:.3f}%")
+    plt.savefig(f'{output_path}/2cls.pdf', bbox_inches='tight')
+    print(f"Final Accuracy: {acc * 100:.3f}%")
+    
 
     # Evaluate external data
     external_data_df = pd.read_csv(external_data, index_col=0)
@@ -278,3 +314,4 @@ if __name__ == '__main__':
     parser.add_argument('-external_data', type=str, required=True, help="Path to the external data CSV file for evaluation")
     args = parser.parse_args()
     main(args)
+
