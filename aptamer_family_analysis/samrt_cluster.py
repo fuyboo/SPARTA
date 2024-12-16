@@ -207,8 +207,8 @@ def process_sequences(fasta_path, cluster_path, output_dir, num_cores=10):
     output_path = os.path.join(output_dir, "Aptamer_family.csv")
     print(f"Writing results to {output_path}")
 
-    seq_shun_fid['group_name'] = seq_shun_fid['group']  
-    seq_shun_fid = seq_shun_fid[['name', 'seq', 'group_name']]  
+    seq_shun_fid['group'] = seq_shun_fid['group']  
+    seq_shun_fid = seq_shun_fid[['name', 'seq', 'group']]  
     seq_shun_fid.to_csv(output_path, index=False)
 
 

@@ -158,7 +158,7 @@ def main(args):
     for idx, data in train_df.iterrows():
         need_line_str = str(data['sequence']).replace('\n', '')
         if len(need_line_str) <= seq_len:
-            need_line_str = need_line_str.rjust(seq_len, 'N')
+            need_line_str = need_line_str.ljust(seq_len, 'N')
         seq_num_l = np.array([seq_dict[_] for _ in need_line_str]).astype(np.float32).transpose(1, 0)
         train_data_list.append(seq_num_l)
         train_label_list.append(np.array([int(data['label'])]))
@@ -166,7 +166,7 @@ def main(args):
     for idx, data in val_df.iterrows():
         need_line_str = str(data['sequence']).replace('\n', '')
         if len(need_line_str) <= seq_len:
-            need_line_str = need_line_str.rjust(seq_len, 'N')
+            need_line_str = need_line_str.ljust(seq_len, 'N')
         seq_num_l = np.array([seq_dict[_] for _ in need_line_str]).astype(np.float32).transpose(1, 0)
         val_data_list.append(seq_num_l)
         val_label_list.append(np.array([int(data['label'])]))
@@ -273,7 +273,7 @@ def main(args):
     for idx, data in external_data_df.iterrows():
         need_line_str = str(data['sequence']).replace('\n', '')
         if len(need_line_str) <= seq_len:
-            need_line_str = need_line_str.rjust(seq_len, 'N')
+            need_line_str = need_line_str.ljust(seq_len, 'N')
         seq_num_l = np.array([seq_dict[_] for _ in need_line_str]).astype(np.float32).transpose(1, 0)
         external_data_list.append(seq_num_l)
         external_label_list.append(np.array([int(data['label'])]))
