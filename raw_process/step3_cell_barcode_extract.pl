@@ -79,9 +79,3 @@ Options:
 
 Example: $0 --barcode barcode.txt --R1 A1.R1.fastq.gz --R2 A1.R2.fastq.gz -o all_barcode_umi_reads.txt
 
-
-Version: 1.0
-Contact:	clge\@lc-bio.com
-Last Update:	2023/06/01
-";
-}

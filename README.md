@@ -25,7 +25,7 @@ Use the `devtools` package to install the latest version directly from GitHub:
 
 ```
 #install.packages("devtools")
-devtools::install_github("fuyboo/aptpro")
+devtools::install_github("fuyboo/SPARTA")
 ```
 
 ## Input data preparation
@@ -51,6 +51,7 @@ python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy
 Finally, the corresponding family groups of the aptamers are saved in a file such as ./data/output/Aptamer_family.csv.
 
 
+
 | name  | seq | seq | 
 | ------------- | ------------- | ------------- |
 | Apt-1  | TTTCGGCGGGTGAATATCCAACTGGTCCGTCCCTTGGGATCTTTGT  | Clust-5  |
@@ -58,8 +59,9 @@ Finally, the corresponding family groups of the aptamers are saved in a file suc
 | Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
 
 
+
 ### PTK7 aptamers prediction
-Through the previous classification of the aptamer family, a total of 2,395 aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
+Through the previous classification of the aptamer family, aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
 
 ```
 
@@ -72,7 +74,7 @@ Based on the results of Aptamer Family Classification, aptamer sequences binding
 
 ```
 
-python ./aptamer_family_analysisrun_aptamer_training.py -ptk7_sample_path ./data/input/clust1_ptk7.csv -negatibe_sample_path ./data/input/other_sequences.csv 
+python ./aptamer_family_analysis/raptgen_aptamer.py -ptk7_sample_path ./data/input/clust1_ptk7.csv -negatibe_sample_path ./data/input/other_sequences.csv 
 
 ```
 
@@ -88,9 +90,15 @@ python ./aptamer_family_analysisrun_aptamer_training.py -ptk7_sample_path ./data
 Based on the previous aptamer sequence family grouping information, the aptamer family abundance matrix was generated from the UMI count matrix of the aptamer sequences.For example,we generated 'motit_need_1w' matrix.
 
 ```
+library('Seurat')
+library('SPARTA')
+library('mixtools')
+library('ggplot2')
+
+
+#Read the results of **Raw Data Preparation**.
 mrna_sgrna<-Read10X("./CRISPR_result/filtered_feature_bc_matrix/")
 aptamer<-Read10X("./Aptamer_result/")
-
 
 #mRNA abundance matrix
 SUM159 <- CreateSeuratObject(counts = raw_mrna_sgrna$`Gene Expression`[rowSums(raw_mrna_sgrna$`Gene Expression`)>0,])
