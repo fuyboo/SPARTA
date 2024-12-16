@@ -25,7 +25,7 @@ Use the `devtools` package to install the latest version directly from GitHub:
 
 ```
 #install.packages("devtools")
-devtools::install_github("fuyboo/aptpro")
+devtools::install_github("fuyboo/SPARTA")
 ```
 
 ## Input data preparation
