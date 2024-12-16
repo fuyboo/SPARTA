@@ -32,7 +32,7 @@ devtools::install_github("fuyboo/SPARTA")
 
 
 ### Raw data preparation
-The data analysis from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices was performed using CellRanger (from 10x Genomics). For details, please refer to the document ./raw_process/raw_process.pdf.
+The data analysis from raw data to the generation of mRNA, aptamer, and sgRNA expression matrices was performed using CellRanger (from 10x Genomics). For details, please refer to the document https://github.com/fuyboo/SPARTA/blob/main/raw_process/raw_process.pdf.
 
 
 ### Aptamer Family Classification
