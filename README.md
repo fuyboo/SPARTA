@@ -72,7 +72,7 @@ Based on the results of Aptamer Family Classification, aptamer sequences binding
 
 ```
 
-python ./aptamer_family_analysisrun_aptamer_training.py -ptk7_sample_path ./data/input/clust1_ptk7.csv -negatibe_sample_path ./data/input/other_sequences.csv 
+python ./aptamer_family_analysis/raptgen_aptamer.py -ptk7_sample_path ./data/input/clust1_ptk7.csv -negatibe_sample_path ./data/input/other_sequences.csv 
 
 ```
 
