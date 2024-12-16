@@ -51,15 +51,12 @@ python ./aptamer_family_analysis/smart_cluster.py  -t 35 -i 0.7 -e 0.05 -o ./lgy
 Finally, the corresponding family groups of the aptamers are saved in a file such as ./data/output/Aptamer_family.csv.
 
 
-<div align="center">
 
 | name  | seq | seq | 
 | ------------- | ------------- | ------------- |
 | Apt-1  | TTTCGGCGGGTGAATATCCAACTGGTCCGTCCCTTGGGATCTTTGT  | Clust-5  |
 | Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Clust-3  |
 | Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
-
-</div>
 
 
 
