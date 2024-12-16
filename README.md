@@ -61,7 +61,7 @@ Finally, the corresponding family groups of the aptamers are saved in a file suc
 
 
 ### PTK7 aptamers prediction
-Through the previous classification of the aptamer family, a total of 2,395 aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
+Through the previous classification of the aptamer family, aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
 
 ```
 
