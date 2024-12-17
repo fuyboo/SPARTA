@@ -92,11 +92,11 @@ motif_need_1w <- aptamer_need_1w %>%
 motif_need_1w[1:3,1:3]
 
 ```
-|AAACCTGAGAGGTTGC-1 |AAACCTGAGATCCCGC-1 |AAACCTGAGATGTAAC-1 |
-| ------------- | ------------- | ------------- |
-|Family-1            |1318               |1572               |    
-|Family-2            |713                |736                |     
-|Family-3            |629                |620                |  
+|               |AAACCTGAGAGGTTGC-1 |AAACCTGAGATCCCGC-1 |AAACCTGAGATGTAAC-1 |
+| ------------- | ------------- | ------------- | ------------- |
+|Family-1            |1318               |1572               |3172               |
+|Family-2            |713                |736                |260                |
+|Family-3            |629                |620                |264                |
 ```
 SUM159[["motif1w"]]<-CreateAssayObject(motif_need_1w)
 ```
