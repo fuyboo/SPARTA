@@ -50,9 +50,9 @@ The resulted family information of the aptamers are saved in a file such as ./da
 
 | name  | seq | group | 
 | ------------- | ------------- | ------------- |
-| Apt-1  | TTTCGGCGGGTGAATATCCAACTGGTCCGTCCCTTGGGATCTTTGT  | Clust-5  |
-| Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Clust-3  |
-| Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Clust-9  |
+| Apt-1  | TTTCGGCGGGTGAATATCCAACTGGTCCGTCCCTTGGGATCTTTGT  | Family-1  |
+| Apt-2  | GGTTTGCTGAGGTGGGCGTCGTTGAATGTTAGTTCGGGAATACTTG  | Family-2  |
+| Apt-3  | GGCTCCTCTTAGGGGCTGTGACCGGCGGGCGGGAATGTAGCAGGAT  | Family-3  |
 
 
 
