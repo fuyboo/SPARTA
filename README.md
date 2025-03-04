@@ -151,7 +151,7 @@ visualize_aptamer_difference(predict_result,'Clust-1')
 
 ## deep learning modules
 ### Aptamers binding potential prediction
-   Through the previous classification of the aptamer family, aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（https://github.com/turningpoint1988/fcnarbb）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
+   Through the previous classification of the aptamer family, aptamer sequences binding to the PTK7 protein were identified. Based on these sequences, we trained the FCNARRB model（[https://github.com/turningpoint1988/fcnarbb](https://github.com/turningpoint1988/fcnarbb)）, enabling accurate prediction of whether unknown sequences can bind to the PTK7 protein.
 
 ```
 
