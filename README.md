@@ -113,8 +113,7 @@ SUM159<-cell_quality (SUM159,
 ```
 
 <div align="center">
-  <img src="picture/sgrna_qc1.png" alt="annotation" width="45%" height="45%" style="display: inline-block;"/>
-  <img src="picture/sgrna_qc2.png" alt="annotation" width="45%" height="45%" style="display: inline-block;"/>
+  <img src="picture/sgrna_qc.png" alt="annotation" width="45%" height="45%" style="display: inline-block;"/>
 </div>
 
 
