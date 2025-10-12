@@ -112,9 +112,7 @@ SUM159<-cell_quality (SUM159,
                       save_path = NULL)
 ```
 
-<div align="center">
-  <img src="picture/sgrna_qc.png" alt="annotation" width="45%" height="45%" style="display: inline-block;"/>
-</div>
+![](picture/sgrna_qc%20.png "annotation")
 
 
   In this step, you will assign a gRNA identity to each cell and calculate enrichment ratios, defined as the proportion of counts from the most abundant gRNA relative to the total gRNA counts in the cell, using cell gRNA counts assessed in Step 1. This process involves setting thresholds to categorize cell gRNA effectively.
