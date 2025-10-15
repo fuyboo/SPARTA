@@ -61,7 +61,7 @@ Based on the previous aptamer sequence family grouping information, the aptamer 
 
 ```
 library('Seurat')
-library('SPARTA')
+library('aptpro')
 library('mixtools')
 library('ggplot2')
 library('dplyr')
