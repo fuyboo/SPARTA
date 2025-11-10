@@ -80,9 +80,9 @@ SUM159 <- CreateSeuratObject(counts = raw_mrna_sgrna$`Gene Expression`[rowSums(r
 #sgRNA abundance matrix
 SUM159[["sgRNA"]] <- CreateAssayObject(raw_mrna_sgrna$`CRISPR Guide Capture`)
 #top_aptamer abundance matrix
-SUM159[["aptamer_1w"]] <- CreateAssayObject(aptamer[top_aptamer_sequence,])
+SUM159[["aptamer"]] <- CreateAssayObject(aptamer[top_aptamer_sequence,])
 #aptamer family abundance matrix
-aptamer_need_1w<-GetAssayData(SUM159, slot = "counts",assays="apatmer_1w")
+aptamer_need_1w<-GetAssayData(SUM159, slot = "counts",assays="apatmer")
 aptamer_need_1w<- data.frame(aptamer_need_1w)
 aptamer_need_1w$group <- aptamer_family$group
 motif_need_1w <- aptamer_need_1w %>%
