@@ -145,7 +145,15 @@ visualize_aptamer_difference(predict_result,'Clust-1')
   <img src="picture/PTK7_Clust-1.png" alt="annotation" style="width: 50%; height: auto;"/>
 </div>
 
+### Step4: Aptamer target validation
+  To further validate aptamer–target interaction specificity identified by SPARTA, this step examines copy number differences of individual aptamers within each aptamer family between control and target-knockout cells. For each protein target, volcano plots are generated to visualize log2 fold changes in aptamer abundance and corresponding significance levels. These plots reveal variable shifts in binding after target knockout, indicating that individual aptamers display distinct sensitivities to target expression levels.
 
+```
+plot_aptamer_volcano(
+    seurat_obj = SUM159,
+    proteins   = c("CDCP1","ITGA3","ITGB1","NRP1","NRP2","PTK7","PTPRF","PTPRD")
+)
+```
 
 ## deep learning modules
 ### Aptamers binding potential prediction
