@@ -154,7 +154,9 @@ plot_aptamer_volcano(
     proteins   = c("CDCP1","ITGA3","ITGB1","NRP1","NRP2","PTK7","PTPRF","PTPRD")
 )
 ```
+<div align="center">
 <img width="543" height="528" alt="image" src="https://github.com/user-attachments/assets/7d456dc1-e77e-4a45-a01c-15c2a39662ec" />
+</div>
 
 ## deep learning modules
 ### Aptamers binding potential prediction
