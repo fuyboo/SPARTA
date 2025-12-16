@@ -151,8 +151,7 @@ visualize_aptamer_difference(predict_result,'Clust-1')
 ```
 plot_aptamer_volcano(
     seurat_obj = SUM159,
-    proteins   = c("CDCP1","ITGA3","ITGB1","NRP1","NRP2","PTK7","PTPRF","PTPRD")
-)
+    proteins   = "PTK7")
 ```
 <div align="center">
 <img width="543" height="528" alt="image" src="https://github.com/user-attachments/assets/7d456dc1-e77e-4a45-a01c-15c2a39662ec" />
