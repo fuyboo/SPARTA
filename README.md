@@ -149,9 +149,7 @@ visualize_aptamer_difference(predict_result,'Clust-1')
   To further validate aptamer–target interaction specificity identified by SPARTA, this step examines copy number differences of individual aptamers within each aptamer family between control and target-knockout cells. For each protein target, volcano plots are generated to visualize log2 fold changes in aptamer abundance and corresponding significance levels. These plots reveal variable shifts in binding after target knockout, indicating that individual aptamers display distinct sensitivities to target expression levels.
 
 ```
-plot_aptamer_volcano(
-    seurat_obj = SUM159,
-    proteins   = "PTK7")
+plot_aptamer_volcano(SUM159, proteins   = "PTK7")
 ```
 <div align="center">
 <img width="543" height="528" alt="image" src="https://github.com/user-attachments/assets/7d456dc1-e77e-4a45-a01c-15c2a39662ec" />
