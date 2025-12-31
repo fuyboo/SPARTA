@@ -84,7 +84,7 @@ plot_aptamer_volcano <- function(
     # NOTE: this mapping encodes which motif clusters are used per protein.
     # You can modify it to match your analysis exactly.
     protein_clusters <- list(
-      "PTPRD" = c("Clust-1", "Clust-15"),
+      "PTK7" = c("Clust-1", "Clust-15"),
       "PTPRF" = c("Clust-4"),
       "ITGA3" = c("Clust-3"),
       "CDCP1" = c("Clust-5", "Clust-13", "Clust-17"),
@@ -138,7 +138,8 @@ plot_aptamer_volcano <- function(
   # Optionally subset sgRNA targets
   # --------------------------------------------------------------------------
   if ("target" %in% colnames(obj@meta.data) && length(exclude_targets) > 0) {
-    obj <- subset(obj, !(target %in% exclude_targets))
+    Idents(obj)<-obj$target
+    obj <- subset(obj, idents=exclude_targets,invert=TRUE)
   }
 
   # --------------------------------------------------------------------------
@@ -169,7 +170,7 @@ plot_aptamer_volcano <- function(
   data_motif <- FetchData(
     obj,
     vars = c(need_motif, "group"),
-    slot = "counts"
+    layer = "counts"
   )
 
   # --------------------------------------------------------------------------
@@ -223,13 +224,13 @@ plot_aptamer_volcano <- function(
   )
   rownames(design) <- rownames(group_df)
 
-  contrast.matrix <- makeContrasts(ss - Control, levels = design)
+  contrast.matrix <- limma::makeContrasts(ss - Control, levels = design)
 
-  fit  <- lmFit(exp_unique, design)
-  fit2 <- contrasts.fit(fit, contrast.matrix)
-  fit2 <- eBayes(fit2)
+  fit  <- limma::lmFit(exp_unique, design)
+  fit2 <- limma::contrasts.fit(fit, contrast.matrix)
+  fit2 <- limma::eBayes(fit2)
 
-  DEG <- topTable(fit2, coef = 1, n = Inf)
+  DEG <- limma::topTable(fit2, coef = 1, n = Inf)
   DEG$gene <- rownames(DEG)
   DEG$gg   <- ifelse(DEG$logFC >= 0, "no_change", "change")
 
@@ -239,8 +240,6 @@ plot_aptamer_volcano <- function(
   #   - optionally: overwrite labels for predefined highlighted aptamers
   # --------------------------------------------------------------------------
   DEG$label <- ""
-  top_idx <- head(order(abs(DEG$logFC), decreasing = TRUE), 10)
-  DEG$label[top_idx] <- rownames(DEG)[top_idx]
 
   if (protein %in% names(protein_highlights)) {
     hl <- protein_highlights[[protein]]
@@ -268,9 +267,9 @@ plot_aptamer_volcano <- function(
       plot.title       = element_text(hjust = 0.5, size = 12, family = "sans")
     ) +
     labs(
-      title = paste0(protein, " sgRNA vs Control"),
-      x     = "logFC",
-      y     = "log10(P.Value)"
+      title = paste0(protein, " KO vs Control"),
+      x     = "log[2]FC",
+      y     = "log10(P)"
     ) +
     guides(color = "none")
 
@@ -285,7 +284,7 @@ plot_aptamer_volcano <- function(
   }
 
   p <- p +
-    geom_text_repel(
+    ggrepel::geom_text_repel(
       data          = data_lab[data_lab$label != "", ],
       aes(label     = label),
       size          = 3.5,
